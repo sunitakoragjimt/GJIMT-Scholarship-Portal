@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--red:#b82f38;--red-dark:#92232c;--red-soft:#fbecee;--ink:#202532;--muted:#727987;--line:#e5e7eb;--paper:#fff;--bg:#f4f5f7;--green:#16835d;--shadow:0 18px 55px rgba(28,35,48,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px}.topbar{height:76px;padding:0 max(5vw,24px);display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px}.brand-mark,.login-icon{width:43px;height:43px;border-radius:13px;background:var(--red);color:#fff;display:grid;place-items:center;font:800 27px Manrope;box-shadow:0 6px 15px #b82f3830}.brand strong{display:block;font:800 22px Manrope;letter-spacing:1px}.brand small{display:block;font-size:9px;letter-spacing:1.5px;color:#818795;font-weight:800}.topbar-right{font-size:13px;font-weight:700;color:#525967;display:flex;align-items:center;gap:9px}.live-dot{width:8px;height:8px;border-radius:50%;background:#1aa56d}.session-year{background:var(--red-soft);color:var(--red);padding:7px 10px;border-radius:6px;font-size:10px;letter-spacing:.7px}
+main{max-width:1320px;margin:0 auto;padding:36px 34px 70px}.view{display:none}.view.active{display:block}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:50px;align-items:center;min-height:465px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:55px 7%;overflow:hidden;position:relative;box-shadow:var(--shadow)}.hero-copy{position:relative;z-index:2}.eyebrow{font-size:11px;letter-spacing:2px;font-weight:800;color:var(--red)}h1,h2,h3,p{margin-top:0}.hero-copy h1,.page-heading h1,.admin-header h1{font:800 clamp(38px,5vw,62px)/1.08 Manrope;letter-spacing:-2.7px;margin:17px 0}.hero-copy h1 em{font-style:normal;color:var(--red)}.hero-lead{font-size:18px;line-height:1.75;color:#697180;max-width:590px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 22px}.btn{border:0;border-radius:9px;padding:13px 19px;font:700 14px 'DM Sans';cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px);filter:brightness(.97)}.btn-primary{background:var(--red);color:#fff;box-shadow:0 8px 18px #b82f3826}.btn-primary:hover{background:var(--red-dark)}.btn-outline{background:#fff;border:1px solid #d9dce2;color:#343b49}.btn-large{padding:16px 22px;font-size:15px}.btn span{font-size:20px;margin-left:12px}.hero-note{font-size:13px;color:#717987;display:flex;align-items:center;gap:8px}.check-round{width:19px;height:19px;display:grid;place-items:center;border-radius:50%;background:#e7f5ee;color:var(--green);font-weight:900}
+.hero-art{height:360px;position:relative;display:grid;place-items:center;background:radial-gradient(circle,#fae9e9 0,#f7f0f0 40%,transparent 72%)}.orbit{position:absolute;border:1px solid #dca9ad;border-radius:50%;width:320px;height:320px}.orbit-two{width:390px;height:250px;transform:rotate(-25deg);border-color:#e9d1d3}.award-card{position:relative;width:245px;height:300px;background:linear-gradient(145deg,#fff,#f8eeee);border:7px double #c78c91;border-radius:12px;box-shadow:0 22px 50px #7b2b3530;text-align:center;padding:19px 13px;color:#7e2730;transform:rotate(4deg)}.award-top{font-size:10px;font-weight:900;letter-spacing:1.5px;border-bottom:1px solid #e3bfc2;padding-bottom:9px}.award-top span{color:#d2a35e}.award-seal{width:44px;height:44px;border-radius:50%;background:var(--red);color:white;margin:14px auto 5px;display:grid;place-items:center;font:800 25px Manrope;border:3px solid #e4b9a0;outline:1px solid var(--red)}.award-small{font-size:8px;letter-spacing:2px;font-weight:800}.award-big{font:800 68px/1 Manrope;color:#b42c37;margin-top:10px}.award-big span{font-size:28px}.award-label{font-size:13px;font-weight:900;letter-spacing:3px}.award-bottom{position:absolute;bottom:16px;left:0;right:0;font-size:8px;letter-spacing:1.7px;font-weight:900}.floating-chip{position:absolute;background:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px #29304217;font-size:12px;font-weight:800;color:#3b4250}.chip-one{top:37px;left:0}.chip-two{right:-8px;bottom:45px}
+.slab-section{padding:55px 4px 0}.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section-heading h2{font:800 29px Manrope;margin:7px 0 0}.section-heading p{font-size:14px;color:var(--muted);max-width:300px;margin:0}.slab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.slab-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:23px 24px;display:flex;flex-direction:column;gap:7px}.slab-card span{font-size:12px;color:#7b8290;font-weight:800;letter-spacing:.6px}.slab-card strong{font:800 43px Manrope;color:#343a48}.slab-card strong small{font-size:22px}.slab-card b{font-size:13px;color:#727987}.slab-100{background:var(--red);border-color:var(--red);color:#fff}.slab-100 span,.slab-100 strong,.slab-100 b{color:#fff}.eligibility-strip{margin-top:17px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:19px 22px;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:20px}.eligibility-strip div{display:flex;flex-direction:column;gap:6px}.eligibility-strip strong{font-size:10px;letter-spacing:1px;color:var(--red)}.eligibility-strip span{font-size:13px;font-weight:700;color:#444b58}
+.page-heading{margin:12px 0 25px}.back-link{border:0;background:none;color:var(--red);font-weight:800;font-size:13px;cursor:pointer;padding:0;margin-bottom:25px}.page-heading h1,.admin-header h1{font-size:39px;letter-spacing:-1.5px;margin:8px 0}.page-heading p,.admin-header p{color:var(--muted);margin:0}.form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px;box-shadow:var(--shadow)}.form-section-title{display:flex;gap:14px;align-items:center;border-bottom:1px solid #eff0f2;padding-bottom:16px;margin:5px 0 22px}.form-section-title:not(:first-child){margin-top:35px}.step-number{width:38px;height:38px;border-radius:10px;background:var(--red-soft);color:var(--red);display:grid;place-items:center;font-weight:900}.form-section-title h3{font:800 19px Manrope;margin:0 0 4px}.form-section-title p{font-size:12px;color:var(--muted);margin:0}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px}.form-grid label,.login-card label{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:800;color:#424957}.form-grid input,.form-grid select,.form-grid textarea,.login-card input,.filters input,.filters select{width:100%;border:1px solid #dfe2e7;border-radius:8px;background:#fff;padding:13px 14px;font:500 14px 'DM Sans';color:#252b37;outline:none;transition:.2s}.form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus,.login-card input:focus,.filters input:focus{border-color:var(--red);box-shadow:0 0 0 3px #b82f3812}.form-grid input::placeholder,.form-grid textarea::placeholder{color:#a3a8b1}.full-field{grid-column:1/-1}.optional{font-weight:500;color:#8b909a}.phone-input{display:flex;border:1px solid #dfe2e7;border-radius:8px;overflow:hidden}.phone-input:focus-within{border-color:var(--red);box-shadow:0 0 0 3px #b82f3812}.phone-input span{background:#f4f5f7;padding:13px 12px;color:#555d6b;border-right:1px solid #e1e3e8}.phone-input input{border:0!important;box-shadow:none!important}.academic-grid{align-items:stretch}.percentage-preview{background:#f6f7f9;border:1px solid #eceef1;border-radius:10px;padding:13px 15px;display:flex;flex-direction:column;gap:4px}.percentage-preview span{font-size:11px;color:#727987;font-weight:700}.percentage-preview strong{font:800 27px Manrope;color:#252b37}.percentage-preview small{font-size:10px;color:#8b919b}.scholarship-preview{background:#fff5f5;border-color:#f1d8da}.scholarship-preview strong{color:var(--red)}.notice-box{margin-top:23px;padding:16px 18px;border-radius:10px;background:#fff7f7;border:1px solid #f2dfe1}.notice-box strong{font-size:13px;color:var(--red)}.notice-box p{font-size:12px;color:#626a78;margin:6px 0 0;line-height:1.6}.consent-check{display:flex;gap:11px;align-items:flex-start;margin:22px 0;font-size:12px;line-height:1.6;color:#626a78}.consent-check input{accent-color:var(--red);width:17px;height:17px;flex-shrink:0}.form-actions{display:flex;justify-content:flex-end;gap:12px;border-top:1px solid #eff0f2;padding-top:22px}.form-message{font-size:13px;color:var(--red);margin:12px 0 0}.form-message:empty{display:none}
+.success-card{max-width:700px;margin:20px auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px;text-align:center;box-shadow:var(--shadow)}.success-icon{width:58px;height:58px;margin:0 auto 18px;background:#e7f5ee;color:var(--green);border-radius:50%;display:grid;place-items:center;font-size:30px;font-weight:900}.success-card h1{font:800 38px Manrope;margin:9px}.success-card>p{color:var(--muted)}.voucher-preview{margin:25px 0;background:linear-gradient(135deg,#fff,#fff5f5);border:5px double #c9858b;border-radius:12px;padding:24px;color:#7e2730}.voucher-heading{display:flex;justify-content:space-between;gap:10px;font-size:10px;font-weight:900;letter-spacing:1px}.voucher-kicker{font-size:11px;font-weight:900;letter-spacing:3px;margin-top:22px}.voucher-preview h2{font:800 34px Manrope;margin:8px}.voucher-name{font-size:19px;font-weight:800;color:#303542}.voucher-number{border-top:1px solid #e6c9cb;border-bottom:1px solid #e6c9cb;padding:12px;display:flex;flex-direction:column;gap:4px}.voucher-number small{font-size:9px;letter-spacing:2px}.voucher-number strong{font-size:17px}.voucher-details{display:flex;justify-content:center;gap:35px;padding:15px;font-size:10px}.voucher-details span{display:flex;flex-direction:column;gap:5px}.voucher-details b{font-size:15px}.voucher-courses{font-size:11px;font-weight:900;letter-spacing:.6px}.provisional-note{font-size:12px!important;line-height:1.6;margin:0 auto 22px;max-width:570px}
+.login-wrap{max-width:480px;margin:20px auto}.login-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;box-shadow:var(--shadow)}.login-icon{margin-bottom:20px;width:52px;height:52px;font-size:30px}.login-card h1{font:800 31px Manrope;margin:8px 0}.login-card>p{font-size:14px;color:var(--muted);margin-bottom:25px}.login-card form{display:flex;flex-direction:column;gap:17px}.full-width{width:100%}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin:10px 0 25px}.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px 22px;display:flex;flex-direction:column;gap:6px}.stat-card span{font-size:12px;font-weight:800;color:#707785}.stat-card strong{font:800 35px Manrope}.stat-card small{font-size:11px;color:#9298a2}.stat-highlight{background:var(--red);border-color:var(--red)}.stat-highlight span,.stat-highlight strong,.stat-highlight small{color:#fff}.admin-panels{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:16px 0}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:22px}.panel h3{font:800 16px Manrope;margin-bottom:18px}.class-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.class-stats div{background:#f6f7f9;border-radius:9px;padding:13px;display:flex;flex-direction:column;gap:5px}.class-stats span{font-size:11px;color:var(--muted)}.class-stats strong{font:800 24px Manrope}.eligible-total{display:flex;align-items:center;gap:15px}.eligible-total strong{font:800 40px Manrope;color:var(--green)}.eligible-total span{font-size:12px;color:var(--muted);max-width:180px;line-height:1.5}.student-table-panel{margin-top:16px}.table-heading{display:flex;align-items:center;justify-content:space-between}.table-heading h2{font:800 21px Manrope;margin:0 0 5px}.table-heading p{font-size:12px;color:var(--muted);margin:0}.filters{display:grid;grid-template-columns:1fr 170px 190px;gap:10px;margin:20px 0}.filters input,.filters select{font-size:12px;padding:11px}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{text-align:left;background:#f7f7f8;color:#737a87;font-size:10px;text-transform:uppercase;letter-spacing:.5px;padding:13px 12px}td{padding:14px 12px;border-bottom:1px solid #eff0f2;font-size:12px;color:#414856}td:first-child{font-weight:800;color:#252b37}.slab-pill{display:inline-block;padding:5px 8px;border-radius:20px;background:#fcebed;color:var(--red);font-weight:900;font-size:10px}.slab-pill.none{background:#f0f1f3;color:#777}.empty-cell{text-align:center;color:#858c98;padding:30px}.table-footnote{font-size:11px;color:#858c98;margin:12px 0 0}
+footer{max-width:1320px;margin:0 auto;padding:20px 34px 30px;border-top:1px solid #e2e4e8;display:flex;justify-content:space-between;color:#8a909a;font-size:11px}
+@media(max-width:850px){main{padding:22px 18px 50px}.hero-grid{grid-template-columns:1fr;padding:38px 7%;gap:10px}.hero-art{height:300px}.slab-grid{grid-template-columns:repeat(2,1fr)}.eligibility-strip{grid-template-columns:1fr 1fr}.eligibility-strip div:last-child{grid-column:1/-1}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.topbar{height:65px;padding:0 16px}.topbar-right{font-size:0}.session-year{font-size:9px}.brand strong{font-size:19px}main{padding:16px 12px 40px}.hero-grid{padding:30px 22px;border-radius:16px}.hero-copy h1{font-size:42px}.hero-lead{font-size:15px}.hero-actions{flex-direction:column}.hero-actions .btn{width:100%}.hero-art{height:270px;transform:scale(.92)}.section-heading{display:block}.section-heading p{margin-top:9px}.section-heading h2{font-size:25px}.slab-card{padding:17px}.slab-card strong{font-size:36px}.eligibility-strip{grid-template-columns:1fr}.eligibility-strip div:last-child{grid-column:auto}.form-card{padding:22px 16px}.form-grid{grid-template-columns:1fr}.full-field{grid-column:auto}.page-heading h1,.admin-header h1{font-size:31px}.form-actions{flex-direction:column-reverse}.form-actions button{width:100%}.success-card{padding:25px 15px}.voucher-preview{padding:16px 10px}.voucher-preview h2{font-size:27px}.voucher-heading{font-size:8px}.admin-header{align-items:flex-start;gap:10px}.stats-grid{grid-template-columns:1fr 1fr;gap:9px}.stat-card{padding:15px 12px}.stat-card strong{font-size:29px}.admin-panels{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.table-heading{align-items:flex-start;gap:12px;flex-direction:column}.table-heading .btn{width:100%}footer{padding:18px;display:flex;flex-direction:column;gap:8px}}
+@media print{body{background:#fff}.topbar,footer,#welcomeView,#studentView,#adminLoginView,#adminView,.success-card>button,.success-card>.eyebrow,.success-card>h1,.success-card>p:not(.provisional-note){display:none!important}main{padding:0}.view{display:none!important}#successView{display:block!important}.success-card{box-shadow:none;border:0;margin:0;max-width:none;padding:15px}.voucher-preview{margin:0 auto 15px;max-width:650px}.provisional-note{color:#333}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+     
+      <img src="F:\GJIMT_Scholarship_Portal_Local_Preview (2)\GJIMT_Scholarship_Portal_Local_Preview\Apps_Script_Original\gjimt_logo.png" alt="GJIMT Logo" width="550" height="80">
+    </div>
+    <div class="topbar-right"><span class="live-dot"></span> Scholarship Portal <span class="session-year">2027 SESSION</span></div>
+  </div>
+
+  <main id="app">
+    <section id="welcomeView" class="view active">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">GJ ACADEMIC EXCELLENCE SCHOLARSHIP</span>
+          <h1>Your merit.<br><em>Your opportunity.</em></h1>
+          <p class="hero-lead">Celebrate your hard work with a merit-based scholarship at GJIMT. Check your eligibility and take the first step towards your future.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary btn-large" onclick="showView('studentView')">Start Student Registration <span>→</span></button>
+            <button class="btn btn-outline btn-large" onclick="showView('adminLoginView')">Admin Login</button>
+          </div>
+          <div class="hero-note"><span class="check-round">✓</span> Open for Class 9, 10 &amp; 11 students</div>
+        </div>
+        <div class="hero-art">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="award-card">
+            <div class="award-top">GJIMT <span>✦</span> MERIT AWARD</div>
+            <div class="award-seal">G</div>
+            <div class="award-small">ACADEMIC EXCELLENCE</div>
+            <div class="award-big">100<span>%</span></div>
+            <div class="award-label">SCHOLARSHIP</div>
+            <div class="award-bottom">YOUR FUTURE STARTS HERE</div>
+          </div>
+          <div class="floating-chip chip-one">✦ Merit based</div>
+          <div class="floating-chip chip-two">BBA · BCA · BCom</div>
+        </div>
+      </div>
+      <section class="slab-section">
+        <div class="section-heading"><div><span class="eyebrow">REWARD YOUR ACHIEVEMENT</span><h2>Merit scholarship slabs</h2></div><p>Based on the percentage you enter for your selected class.</p></div>
+        <div class="slab-grid">
+          <div class="slab-card slab-100"><span>Platinum Merit Scholarship</span><strong>100<small>%</small></strong><b>Scholarship</b></div>
+          <div class="slab-card"><span>Gold Merit Scholarship</span><strong>50<small>%</small></strong><b>Scholarship</b></div>
+          <div class="slab-card"><span>Silver Merit Scholarship</span><strong>30<small>%</small></strong><b>Scholarship</b></div>
+          <div class="slab-card"><span>Bronze Merit Scholarship</span><strong>20<small>%</small></strong><b>Scholarship</b></div>
+        </div>
+        <div class="eligibility-strip"><div><strong>ELIGIBLE COURSES</strong><span>BBA&nbsp; | &nbsp;BCA&nbsp; | &nbsp;BCom (Hons)</span></div><div><strong>REGISTRATION DEADLINE</strong><span>31 December 2026</span></div><div><strong>IMPORTANT</strong><span>Final award subject to board-result verification</span></div></div>
+      </section>
+    </section>
+
+    <section id="studentView" class="view">
+      <div class="page-heading"><button class="back-link" onclick="showView('welcomeView')">← Back to Home &nbsp;&nbsp;&nbsp;   </button><span class="eyebrow">STUDENT PORTAL</span><h1>Scholarship registration</h1><p>Enter your details carefully. Fields marked * are required.</p></div>
+      <form id="registrationForm" class="form-card" onsubmit="submitStudentForm(event)">
+        <div class="form-section-title"><span class="step-number">01</span><div><h3>Personal information</h3><p>Tell us about yourself and your family.</p></div></div>
+        <div class="form-grid">
+          <label>Candidate Name *<input name="candidateName" required maxlength="80" pattern="[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ .'-]{1,79}" placeholder="Enter full name"></label>
+          <label>Father's Name *<input name="fatherName" required maxlength="80" pattern="[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ .'-]{1,79}" placeholder="Enter father's name"></label>
+          <label>Mother's Name *<input name="motherName" required maxlength="80" pattern="[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ .'-]{1,79}" placeholder="Enter mother's name"></label>
+          <label>Student Mobile Number *<div class="phone-input"><span>+91</span><input name="studentMobile" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="10-digit number"></div></label>
+          <label>Father / Parent Mobile Number *<div class="phone-input"><span>+91</span><input name="fatherMobile" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" required placeholder="10-digit number"></div></label>
+          <label>Email Address *<input name="email" type="email" required placeholder="student@example.com"></label>
+          <label>Full Address *
+
+
+<div class="form-grid">
+
+  <label>Current Address *
+    <textarea name="currentAddress" rows="3" required cols="60"
+      placeholder="Enter your current address"></textarea>
+  </label>
+
+  <label>Permanent Residential Address *
+    <textarea name="permanentAddress" rows="3" required
+      placeholder="Enter your permanent address"></textarea>
+  </label>
+
+</div>
+<label>PIN Code *
+  <input
+    type="text"
+    name="pinCode"
+    maxlength="6"
+    minlength="6"
+    pattern="[0-9]{6}"
+    inputmode="numeric"
+    required
+    placeholder="Enter 6-digit PIN Code">
+</label>
+<label>State / UT *
+  <select name="state" required>
+    <option value="">Select State / UT</option>
+
+    <optgroup label="States">
+      <option>Andhra Pradesh</option>
+      <option>Arunachal Pradesh</option>
+      <option>Assam</option>
+      <option>Bihar</option>
+      <option>Chhattisgarh</option>
+      <option>Goa</option>
+      <option>Gujarat</option>
+      <option>Haryana</option>
+      <option>Himachal Pradesh</option>
+      <option>Jharkhand</option>
+      <option>Karnataka</option>
+      <option>Kerala</option>
+      <option>Madhya Pradesh</option>
+      <option>Maharashtra</option>
+      <option>Manipur</option>
+      <option>Meghalaya</option>
+      <option>Mizoram</option>
+      <option>Nagaland</option>
+      <option>Odisha</option>
+      <option>Punjab</option>
+      <option>Rajasthan</option>
+      <option>Sikkim</option>
+      <option>Tamil Nadu</option>
+      <option>Telangana</option>
+      <option>Tripura</option>
+      <option>Uttar Pradesh</option>
+      <option>Uttarakhand</option>
+      <option>West Bengal</option>
+    </optgroup>
+
+    <optgroup label="Union Territories">
+      <option>Andaman and Nicobar Islands</option>
+      <option>Chandigarh</option>
+      <option>Dadra and Nagar Haveli and Daman and Diu</option>
+      <option>Delhi</option>
+      <option>Jammu and Kashmir</option>
+      <option>Ladakh</option>
+      <option>Lakshadweep</option>
+      <option>Puducherry</option>
+    </optgroup>
+  </select>
+</label>
+
+</label>
+
+        </div>
+        <div class="form-section-title"><span class="step-number">02</span><div><h3>School information</h3><p>Provide your current school details.</p></div></div>
+        <div class="form-grid">
+          <label>School name *<input name="schoolName" required placeholder="Enter school name"></label>
+          <label class="full-field">School Address *<textarea name="schoolAddress" rows="2" required placeholder="Full school address"></textarea></label>
+          <label>Class 12 Board Roll Number <span class="optional">(if available)</span><input name="boardRollNumber" maxlength="30" placeholder="Enter roll number"></label>
+        </div>
+        <div class="form-section-title"><span class="step-number">03</span><div><h3>Academic details</h3><p>Select your class and enter marks obtained out of 800.</p></div></div>
+        <div class="form-grid academic-grid">
+          <label>Select class *<select name="selectedClass" required><option value="">Choose class</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option></select></label>
+          <label>Marks obtained *<input id="marksObtained" name="marksObtained" type="number" min="0" max="800" step="1" required placeholder="0 – 800" oninput="updateScholarshipPreview()"></label>
+          <div class="percentage-preview"><span>Calculated percentage</span><strong id="percentageValue">0.00%</strong><small>Calculated out of 800 marks</small></div>
+          <div class="percentage-preview scholarship-preview"><span>Estimated scholarship</span><strong id="scholarshipValue">—</strong><small id="scholarshipHint">Enter marks to check your slab</small></div>
+        </div>
+        <br><br>
+<div class="form-grid academic-grid">
+
+  <label>Class 12th Stream
+    <select name="stream">
+      <option value="">Select Stream</option>
+      <option value="Arts">Arts</option>
+      <option value="Commerce">Commerce</option>
+      <option value="Medical">Medical</option>
+      <option value="Non-Medical">Non-Medical</option>
+    </select>
+  </label>
+
+  <label>Subject Name
+    <input type="text" name="subjectName"
+      placeholder="Enter subject name">
+  </label>
+
+  <label>Expected Class 12 Marks out of 500
+    <input id="marksObtained" name="marksObtained"
+      type="number" min="0" max="500" step="1"
+      required placeholder="0 – 500"
+      oninput="updateScholarshipPreview()">
+  </label>
+
+  
+</div>
+
+        <label class="consent-check"><input type="checkbox" name="consent" required><span>I confirm that the information provided is accurate. I consent to GJIMT using these details to process this scholarship registration and contact me and my parent/guardian regarding this application.</span></label>
+        <div class="form-actions"><button type="button" class="btn btn-outline" onclick="showView('welcomeView')">Cancel</button><button id="submitBtn" type="submit" class="btn btn-primary btn-large">Submit Registration <span>→</span></button></div>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
+
+    <section id="successView" class="view">
+      <div class="success-card">
+        <div class="success-icon">✓</div><span class="eyebrow">REGISTRATION RECEIVED</span>
+        <h1>Congratulations!</h1><p>Your scholarship registration has been saved successfully.</p>
+        <div class="voucher-preview">
+          <div class="voucher-heading"><span>GJIMT</span><span>GJ ACADEMIC EXCELLENCE SCHOLARSHIP</span></div>
+          <div class="voucher-kicker">EXCLUSIVE MERIT VOUCHER</div>
+          <h2 id="successScholarship">20% SCHOLARSHIP</h2>
+          <p class="voucher-name" id="successName"></p>
+          <div class="voucher-number"><small>VOUCHER NO.</small><strong id="successVoucher"></strong></div>
+          <div class="voucher-details"><span>CLASS <b id="successClass"></b></span><span>PERCENTAGE <b id="successPercentage"></b></span></div>
+          <div class="voucher-courses">ELIGIBLE COURSES: BBA | BCA | BCom (Hons)</div>
+        </div>
+        <p class="provisional-note">This is a provisional merit voucher. Final scholarship confirmation is subject to verification of board results and admission conditions. Register/enroll by 31 December 2026.</p>
+        <button class="btn btn-primary btn-large" onclick="window.print()">Print / Save Voucher</button>
+        <button class="back-link" onclick="showView('welcomeView')">Return to home</button>
+      </div>
+    </section>
+
+    <section id="adminLoginView" class="view">
+      <div class="login-wrap"><button class="back-link" onclick="showView('welcomeView')">← Back to Home    </button><div class="login-card"><div class="login-icon">G</div><span class="eyebrow">RESTRICTED ACCESS</span><h1>Admin portal</h1><p>Sign in to manage scholarship registrations.</p>
+        <form id="adminLoginForm" onsubmit="submitAdminLogin(event)"><label>Admin username<input id="adminUsername" autocomplete="username" required placeholder="Enter admin username"></label><label>Password<input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Enter password"></label><button class="btn btn-primary btn-large full-width" id="adminLoginBtn">Secure Login →</button><p id="loginMessage" class="form-message"></p></form>
+      </div></div>
+    </section>
+
+    <section id="adminView" class="view">
+      <div class="admin-header"><div><span class="eyebrow">GJIMT ADMINISTRATION</span><h1>Scholarship dashboard</h1><p>Overview of student registrations and merit awards.</p></div><button class="btn btn-outline" onclick="logoutAdmin()">Log out</button></div>
+      <div class="stats-grid">
+        <div class="stat-card"><span>Total registrations</span><strong id="statTotal">0</strong><small>All student applications</small></div>
+        <div class="stat-card stat-highlight"><span>100% scholarship</span><strong id="stat100">0</strong><small>Above 95%</small></div>
+        <div class="stat-card"><span>50% scholarship</span><strong id="stat50">0</strong><small>90% – 94.9%</small></div>
+        <div class="stat-card"><span>30% scholarship</span><strong id="stat30">0</strong><small>80% – 89.9%</small></div>
+        <div class="stat-card"><span>20% scholarship</span><strong id="stat20">0</strong><small>70% – 79.9%</small></div>
+        <div class="stat-card"><span>Not eligible</span><strong id="statNot">0</strong><small>Below 70%</small></div>
+      </div>
+      <div class="admin-panels">
+        <div class="panel"><h3>Class-wise registrations</h3><div class="class-stats"><div><span>Class 9</span><strong id="class9">0</strong></div><div><span>Class 10</span><strong id="class10">0</strong></div><div><span>Class 11</span><strong id="class11">0</strong></div></div></div>
+        <div class="panel"><h3>Eligible students</h3><div class="eligible-total"><strong id="statEligible">0</strong><span>Students qualifying for a provisional scholarship</span></div></div>
+      </div>
+      <div class="panel student-table-panel">
+        <div class="table-heading"><div><h2>Student registrations</h2><p>Search, filter and export your student records.</p></div><button class="btn btn-primary" onclick="exportCsv()">↓ Export CSV</button></div>
+        <div class="filters"><input id="searchStudents" placeholder="Search name, mobile, school, voucher..." oninput="loadStudents()"><select id="filterClass" onchange="loadStudents()"><option value="all">All classes</option><option value="9">Class 9</option><option value="10">Class 10</option><option value="11">Class 11</option></select><select id="filterSlab" onchange="loadStudents()"><option value="all">All scholarships</option><option value="100">100%</option><option value="50">50%</option><option value="30">30%</option><option value="20">20%</option><option value="0">Not eligible</option></select></div>
+        <div class="table-scroll"><table><thead><tr><th>Student</th><th>Class</th><th>Marks</th><th>Percentage</th><th>Scholarship</th><th>Student mobile</th><th>Voucher no.</th><th>Registered</th></tr></thead><tbody id="studentTableBody"><tr><td colspan="8" class="empty-cell">Loading registrations...</td></tr></tbody></table></div>
+        <p id="studentCount" class="table-footnote"></p>
+      </div>
+    </section>
+  </main>
+  <footer><span>© 2026 GJIMT · Aspire. Achieve. Ascend.</span><span>Academic Excellence Scholarship · 2027 Session</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

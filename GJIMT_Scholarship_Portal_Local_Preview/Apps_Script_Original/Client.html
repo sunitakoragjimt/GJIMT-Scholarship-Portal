@@ -1,0 +1,140 @@
+<script>
+let adminToken = null;
+let cachedStudents = [];
+
+function showView(id) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function scholarshipFor(pct) {
+  if (pct >= 95) return 100;
+  if (pct >= 90) return 50;
+  if (pct >= 80) return 30;
+  if (pct >= 70) return 20;
+  return 0;
+}
+
+function updateScholarshipPreview() {
+  const raw = document.getElementById("marksObtained").value;
+  const marks = raw === "" ? 0 : Number(raw);
+  const pct = Math.max(0, Math.min(800, marks)) / 800 * 100;
+  const slab = scholarshipFor(pct);
+  document.getElementById("percentageValue").textContent = pct.toFixed(2) + "%";
+  document.getElementById("scholarshipValue").textContent = raw === "" ? "—" : (slab ? slab + "%" : "Not eligible");
+  document.getElementById("scholarshipHint").textContent = raw === "" ? "Enter marks to check your slab" : (slab ? "Provisional merit slab" : "Minimum eligibility is 70%");
+}
+
+function submitStudentForm(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const message = document.getElementById("formMessage");
+  const btn = document.getElementById("submitBtn");
+  if (!form.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(form).entries());
+  data.consent = form.elements.consent.checked;
+  data.marksObtained = Number(data.marksObtained);
+  if (!/^[6-9]\d{9}$/.test(data.studentMobile) || !/^[6-9]\d{9}$/.test(data.fatherMobile)) {
+    message.textContent = "Please enter valid 10-digit Indian mobile numbers starting with 6, 7, 8 or 9.";
+    return;
+  }
+  if (data.marksObtained < 0 || data.marksObtained > 800) {
+    message.textContent = "Marks must be between 0 and 800.";
+    return;
+  }
+  btn.disabled = true; btn.textContent = "Submitting...";
+  message.textContent = "Please wait while we save your registration.";
+  google.script.run.withSuccessHandler(result => {
+    btn.disabled = false; btn.innerHTML = 'Submit Registration <span>→</span>';
+    if (!result || !result.success) { message.textContent = "Could not complete registration. Please try again."; return; }
+    document.getElementById("successName").textContent = result.candidateName;
+    document.getElementById("successVoucher").textContent = result.voucherNo;
+    document.getElementById("successClass").textContent = result.selectedClass;
+    document.getElementById("successPercentage").textContent = result.percentage.toFixed(2) + "%";
+    document.getElementById("successScholarship").textContent = result.scholarship ? result.scholarship + "% SCHOLARSHIP" : "NOT ELIGIBLE";
+    form.reset(); updateScholarshipPreview(); message.textContent = "";
+    showView("successView");
+  }).withFailureHandler(err => {
+    btn.disabled = false; btn.innerHTML = 'Submit Registration <span>→</span>';
+    message.textContent = (err && err.message) ? err.message : "Something went wrong. Please try again.";
+  }).submitRegistration(data);
+}
+
+function submitAdminLogin(event) {
+  event.preventDefault();
+  const msg = document.getElementById("loginMessage");
+  const btn = document.getElementById("adminLoginBtn");
+  btn.disabled = true; btn.textContent = "Verifying...";
+  google.script.run.withSuccessHandler(result => {
+    adminToken = result.token;
+    btn.disabled = false; btn.textContent = "Secure Login →";
+    showView("adminView"); loadDashboard(); loadStudents();
+  }).withFailureHandler(err => {
+    btn.disabled = false; btn.textContent = "Secure Login →";
+    msg.textContent = err && err.message ? err.message : "Login failed.";
+  }).adminLogin(document.getElementById("adminUsername").value, document.getElementById("adminPassword").value);
+}
+
+function loadDashboard() {
+  google.script.run.withSuccessHandler(data => {
+    const s = data.stats;
+    setText("statTotal",s.total); setText("stat100",s.scholarship100); setText("stat50",s.scholarship50);
+    setText("stat30",s.scholarship30); setText("stat20",s.scholarship20); setText("statNot",s.notEligible);
+    setText("statEligible",s.eligible); setText("class9",s.class9); setText("class10",s.class10); setText("class11",s.class11);
+  }).withFailureHandler(showAdminError).adminGetDashboard(adminToken);
+}
+
+function loadStudents() {
+  if (!adminToken) return;
+  const filters = {
+    search: document.getElementById("searchStudents").value,
+    selectedClass: document.getElementById("filterClass").value,
+    slab: document.getElementById("filterSlab").value
+  };
+  google.script.run.withSuccessHandler(rows => {
+    cachedStudents = rows || [];
+    const body = document.getElementById("studentTableBody");
+    if (!cachedStudents.length) {
+      body.innerHTML = '<tr><td colspan="8" class="empty-cell">No matching student registrations found.</td></tr>';
+    } else {
+      body.innerHTML = cachedStudents.map(r => `<tr>
+        <td>${escapeHtml(r.candidateName)}<br><small>${escapeHtml(r.schoolName)}</small></td>
+        <td>Class ${escapeHtml(r.selectedClass)}</td><td>${Number(r.marksObtained)} / 800</td>
+        <td>${Number(r.percentage).toFixed(2)}%</td>
+        <td><span class="slab-pill ${r.scholarship ? "" : "none"}">${r.scholarship ? r.scholarship+"%" : "Not eligible"}</span></td>
+        <td>${escapeHtml(r.studentMobile)}</td><td>${escapeHtml(r.voucherNo)}</td><td>${escapeHtml(r.timestamp)}</td>
+      </tr>`).join("");
+    }
+    setText("studentCount", cachedStudents.length + " registration(s) shown");
+  }).withFailureHandler(showAdminError).adminGetStudents(adminToken, filters);
+}
+
+function exportCsv() {
+  if (!cachedStudents.length) { alert("There are no records to export."); return; }
+  const cols = ["candidateName","fatherName","motherName","schoolName","schoolAddress","selectedClass","marksObtained","percentage","scholarship","studentMobile","fatherMobile","email","boardRollNumber","voucherNo","timestamp","status"];
+  const lines = [cols.join(",")].concat(cachedStudents.map(r => cols.map(k => '"' + String(r[k] == null ? "" : r[k]).replace(/"/g,'""') + '"').join(",")));
+  const blob = new Blob(["\ufeff"+lines.join("\r\n")],{type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob); const a = document.createElement("a");
+  a.href=url; a.download="GJIMT_Scholarship_Registrations.csv"; a.click(); URL.revokeObjectURL(url);
+}
+
+function logoutAdmin() {
+  const token = adminToken; adminToken = null;
+  google.script.run.withSuccessHandler(() => {
+    document.getElementById("adminLoginForm").reset();
+    document.getElementById("loginMessage").textContent = "";
+    showView("welcomeView");
+  }).adminLogout(token);
+}
+
+function setText(id,value){document.getElementById(id).textContent=value;}
+function escapeHtml(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function showAdminError(err) {
+  const msg = err && err.message ? err.message : "Could not load admin data.";
+  if (/session has expired/i.test(msg)) { adminToken = null; showView("adminLoginView"); }
+  else alert(msg);
+}
+</script>
